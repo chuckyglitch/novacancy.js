@@ -1,7 +1,6 @@
 # Novacancy.js
 
-- It's a Text Neon Golden effect jQuery plug-in
-- Just in devolop
+Novacancy.js is a Text Neon Golden Effect jQuery Plugin
 
 ## Parameters
 
