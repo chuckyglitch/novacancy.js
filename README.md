@@ -1,7 +1,7 @@
 # Novacancy.js
 
-It's a Text Neon Golden effect jQuery plug-in
-Just in devolop
+- It's a Text Neon Golden effect jQuery plug-in
+- Just in devolop
 
 ## Parameters
 
@@ -15,5 +15,5 @@ Just in devolop
 
 ## Coming Soon
 
-custom color
-parameters validate
+- custom color
+- parameters validate
