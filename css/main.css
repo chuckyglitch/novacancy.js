@@ -4,7 +4,6 @@ body {
 
 p {
     font-size: 75px;
-    line-height: 75px;
     font-family: 'Codystar', cursive;
     font-weight: bold;
     color: #fff;
@@ -13,14 +12,8 @@ p {
 
 .board {
     text-align: center;
-}
-
-.novacancy span.on {
-    color: #f90;
-    text-shadow: 0 0 80px #f90, 0 0 30px #f00, 0 0 6px #ff0;
-}
-
-.novacancy span.off {
-    color: #f90;
-    opacity: 0.3;
+    box-shadow: -2px -2px 6px rgba(255,0,0,0.6),4px 4px 6px rgba(255,0,0,0.4),6px 6px 12px rgba(255,0,0,0.4);
+    width: 500px;
+    margin: 50px auto 0 auto;
+    background-color: #000;
 }
