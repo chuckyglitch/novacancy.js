@@ -1,11 +1,11 @@
 /**
-* Novacancy jQuery plug-in
-* Text Blink Neon Golden effect
+* Novacancy
+* jQuery Text Blink Neon Golden effect Plugin
 *
 * @author Chuck Chang <eurt23@gmail.com>
-* @version 0.2
+* @version 0.21
 * @license MIT http://opensource.org/licenses/MIT
-* @date 07-24-2013
+* @date 07-30-2013
 */
 
 (function($){
@@ -26,9 +26,7 @@
 	}
 
     $.fn.novacancy = function(options){
-
         var opts = $.extend({}, $.fn.novacancy.defaults, options);
-
         return novacancy($(this), opts);
     };
 
@@ -66,7 +64,7 @@
 
 	function novacancy(items, options) {
 
-
+		items = $(items);
 		/* parameters */
 
 		var _reblinkProbability = (options.reblinkProbability) ? options.reblinkProbability : (1/3);

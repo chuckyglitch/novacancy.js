@@ -1,19 +1,20 @@
 body {
-    background-color: #000;
-}
-
-p {
-    font-size: 75px;
-    font-family: 'Codystar', cursive;
-    font-weight: bold;
-    color: #fff;
-    text-transform: uppercase;
+    background-color: #111111;
 }
 
 .board {
     text-align: center;
-    box-shadow: -2px -2px 6px rgba(255,0,0,0.6),4px 4px 6px rgba(255,0,0,0.4),6px 6px 12px rgba(255,0,0,0.4);
+    border: 1px solid rgba(255,180,0,0.4);
+    border-radius: 4px;
     width: 500px;
     margin: 50px auto 0 auto;
+    padding: 20px;
     background-color: #000;
+}
+
+.board p {
+    font-size: 75px;
+    font-family: 'Monoton', cursive;
+    color: #fff;
+    text-transform: uppercase;
 }

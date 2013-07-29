@@ -7,27 +7,29 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<title>No Vacancy</title>
-	<link rel="StyleSheet" href="css/html5reset-1.6.1.css" type="text/css" media="screen,print" />
-	<link rel="stylesheet" href="css/main.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Codystar:300,400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/html5reset-1.6.1.css" type="text/css" media="screen,print">
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
 	<!-- IE Fix for HTML5 Tags -->
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="javascript/novacancy.js"></script>
+	<script type="text/javascript" src="javascript/jquery.novacancy.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.no').novacancy({
 				'reblinkProbability': 0.1,
 				'blinkMin': 0.2,
-				'blinkMax': 5,
-				'loopMin': 5,
+				'blinkMax': 0.6,
+				'loopMin': 8,
 				'loopMax': 10,
 				'color': 'WHITE',
 				'blink': true
 			});
-			$('.vacancy').novacancy();
+			$('.vacancy').novacancy({
+				'color': 'RED'
+			});
 		});
 	</script>
 </head>
