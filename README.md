@@ -1,6 +1,6 @@
-# Novacancy.js
+# novacancy.js
 
-Novacancy.js is a Text Neon Golden Effect jQuery Plugin
+novacancy.js is a text neon golden effect jQuery plugin.
 
 ## Basic Usage
 
