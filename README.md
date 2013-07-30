@@ -2,6 +2,10 @@
 
 novacancy.js is a text neon golden effect jQuery plugin.
 
+## Demo
+
+<a href='http://chuckyglitch.twbbs.org/novacancy/'>Visit demo site</a>
+
 ## Basic Usage
 
 ```javascript
