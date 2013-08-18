@@ -31,16 +31,16 @@ $('#no').novacancy({
 
 ## Parameters
 
-- <b>reblinkProbability</b >: 0.1(0 to 1), optional, default: (1/3)
-- <b>blinkMin</b>: 0.2(s), optional, default: 0.01
-- <b>blinkMax</b>: 0.6(s), optional, default: 0.5
-- <b>loopMin</b>: 8(s), optional, default: 0.5
-- <b>loopMax</b>: 10(s), optional, default: 2
-- <b>color</b>: colors, optional, default: 'ORANGE'
-- <b>glow</b>: array of colors, optional, default: ['0 0 80px Orange', '0 0 30px Red', '0 0 6px Yellow']
-- <b>off</b>: amount of off chars, optional, default: 0
-- <b>blink</b>: amount of blink chars, optional, default: 0, 0 means all chars
-- <b>autoOn</b>: blink on at start, optional, default: true
+- <b>reblinkProbability</b >: 0.1(0 to 1), <b>optional</b>, default: <b>(1/3)</b>
+- <b>blinkMin</b>: 0.2(s), <b>optional</b>, default: <b>0.01</b>
+- <b>blinkMax</b>: 0.6(s), <b>optional</b>, default: <b>0.5</b>
+- <b>loopMin</b>: 8(s), <b>optional</b>, default: <b>0.5</b>
+- <b>loopMax</b>: 10(s), <b>optional</b>, default: <b>2</b>
+- <b>color</b>: colors, <b>optional</b> default: <b>'ORANGE'</b>
+- <b>glow</b>: array of text-shadow colors, <b>optional</b>, default: <b>['0 0 80px Orange', '0 0 30px Red', '0 0 6px Yellow']</b>
+- <b>off</b>: amount of off chars, <b>optional</b>, default: <b>0</b>
+- <b>blink</b>: amount of blink chars, <b>optional</b>, default: <b>0</b>, <b>(0 means all chars)</b>
+- <b>autoOn</b>: blink on at start, <b>optional</b>, default: <b>true</b>
 
 ### colors example:
 ```javascript
