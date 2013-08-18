@@ -64,6 +64,4 @@ $('#no').trigger('blinkOff');
 ## Special Thanks
 
 - Evil Reiko <evilreiko@hotmail.com>
-- Supernatural <http://en.wikipedia.org/wiki/Supernatural_(U.S._TV_series)>
-- L.A. Noire <http://en.wikipedia.org/wiki/L.A._Noire>
 
