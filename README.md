@@ -32,10 +32,10 @@ $('#no').novacancy({
 ## Parameters
 
 - <b>reblinkProbability</b >: probability of reblink(0 to 1), <b>Number</b>, <b>optional</b>, default: <b>(1/3)</b>
-- <b>blinkMin</b>: second of minimum blink time, <b>Number</b>, <b>optional</b>, default: <b>0.01</b>
-- <b>blinkMax</b>: second of maximum blink time, <b>Number</b>, <b>optional</b>, default: <b>0.5</b>
-- <b>loopMin</b>: second of minimum trigger blink time, <b>Number</b>, <b>optional</b>, default: <b>0.5</b>
-- <b>loopMax</b>: second of maximum trigger blink time, <b>Number</b>, <b>optional</b>, default: <b>2</b>
+- <b>blinkMin</b>: time(sec.) of minimum blink, <b>Number</b>, <b>optional</b>, default: <b>0.01</b>
+- <b>blinkMax</b>: time(sec.) of maximum blink, <b>Number</b>, <b>optional</b>, default: <b>0.5</b>
+- <b>loopMin</b>: time(sec.) of minimum trigger blink, <b>Number</b>, <b>optional</b>, default: <b>0.5</b>
+- <b>loopMax</b>: time(sec.) of maximum trigger blink, <b>Number</b>, <b>optional</b>, default: <b>2</b>
 - <b>color</b>: colors, <b>String</b>, <b>optional</b> default: <b>'ORANGE'</b>
 - <b>glow</b>: array of text-shadow colors, <b>Array</b>, <b>optional</b>, default: <b>['0 0 80px Orange', '0 0 30px Red', '0 0 6px Yellow']</b>
 - <b>off</b>: amount of off chars, <b>Number</b>, <b>optional</b>, default: <b>0</b>
