@@ -3,240 +3,277 @@
 * jQuery Text Blink Neon Golden effect Plugin
 *
 * @author Chuck Chang <eurt23@gmail.com>
-* @github   <https://github.com/chuckyglitch>
-* @twitter  <https://twitter.com/chuckyglitch>
+* @github <https://github.com/chuckyglitch>
+* @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.3.1
+* @version 0.4
 * @license MIT http://opensource.org/licenses/MIT
-* @date 08-22-2013
+* @date 08-31-2013
 */
 
 ;(function($){
-    "use strict";
+  "use strict";
 
-    $.fn.novacancy = function(options){
+  var Novacancy = function(me, settings) {
+    this._el = $(me);
 
-        /* parameters */
+    if (this.repeat()) return true; /* avoid repeat */
 
-        var settings = $.extend({
-            'reblinkProbability': (1/3),
-            'blinkMin': 0.01,
-            'blinkMax': 0.5,
-            'loopMin': 0.5,
-            'loopMax': 2,
-            'color': 'ORANGE',
-            'glow': ['0 0 80px Orange', '0 0 30px Red', '0 0 6px Yellow'],
-            'off': 0,
-            'blink': 0,
-            'autoOn': true
-        }, options);
+    this._settings = settings;
+    this._powerOn = false;
+    this._loopTimeout = 0;
+    this._el.html(this.buildHTML());
+    this._blinkArr = this.arrayMake();
+    this.bindEvent();
+    this.writeCSS();
 
-        settings.reblinkProbability *= 100;
-        settings.blinkMin *= 1000;
-        settings.blinkMax *= 1000;
-        settings.loopMin *= 1000;
-        settings.loopMax *= 1000;
+    if (this._settings.autoOn) this.blinkOn();
+  };
 
-        /* */
+  Novacancy.prototype.repeat = function() {
+    var el = this._el;
 
-        return novacancy($(this), settings);
-    };
-
-    function rand(min, max) {
-        return Math.floor(Math.random()*(max-min+1)+min);
+    if (el[0].novacancy) {
+      return true;
+    } else {
+      el[0].novacancy = true;
+      return false;
     }
+  }
 
-    function isNumber(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    }
+  Novacancy.prototype.writeCSS = function() {
+    var cssBuilder = this.css();
+    var style = $('<style>'+cssBuilder+'</style>');
+    $('body').append(style);
+  }
 
-    function blink(item, blinkMin, blinkMax, reblinkProbability) {
-        /* blink 1 time */
-        off(item);
-        item[0].blinking = true;
-        setTimeout(function() {
-            on(item);
-            item[0].blinking = false;
-            reblink(item, blinkMin, blinkMax, reblinkProbability);
-        }, rand(blinkMin, blinkMax) );
-    }
+  Novacancy.prototype.selector = function() {
+    var el = this._el;
 
-    function reblink(item, blinkMin, blinkMax, reblinkProbability) {
-        setTimeout(function() {
-            /* continue blink check */
-            if (rand(1,100) <= reblinkProbability) {
-                blink(item, blinkMin, blinkMax, reblinkProbability);      
-            }
-        }, rand(blinkMin, blinkMax) );
-    }
+    var selector = el[0].tagName;
+    if (el[0].id) selector += ("#" + el[0].id);
+    if (el[0].className) selector += ("." + el[0].className);
 
-    function on(item) {
-        item.removeClass('off').addClass('on');
-    }
+    return selector;
+  };
 
-    function off(item) {
-        item.removeClass('on').addClass('off');
-    }
+  Novacancy.prototype.css = function() {
+    var selector = this.selector();
+    var settings = this._settings;
 
-    function novacancy(items, settings) {
+    var textShadow = 'text-shadow: '+settings.glow.toString()+';';
+    var colorOn = 'color: '+settings.color+';'+textShadow;
+    var colorOff = 'color: '+settings.color+'; opacity: 0.3;';
 
-        items = $(items);
+    var css = '';
+    css += (selector+' .novacancy.on { '+colorOn+' }'+'\n');
+    css += (selector+' .novacancy.off { '+colorOff+' }'+'\n');
 
-        /* */
+    return css;
+  };
 
-        var cssBuilder = '';
-        var cssBuildChecker = {};
+  Novacancy.prototype.rand = function(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+  };
 
-        $.each(items, function(index, value) {
+  Novacancy.prototype.isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  };
 
-            var that = $(this);
-            var powerOn = false;
+  Novacancy.prototype.blink = function(item) {
+    /* blink 1 time */
+    var settings = this._settings;
 
-            /* avoid repeat */
+    var that = this;
+    this.off(item);
+    item[0].blinking = true;
+    setTimeout(function() {
+      that.on(item);
+      item[0].blinking = false;
+      that.reblink(item);
+    }, this.rand(settings.blinkMin, settings.blinkMax) );
+  };
 
-            if (that[0].novacancy) {
-                return true;
-            }
-            that[0].novacancy = true;
+  Novacancy.prototype.reblink = function (item) {
+    var settings = this._settings;
 
-            /* css string combine */
+    var that = this;
+    setTimeout(function() {
+      /* continue blink check */
+      if (that.rand(1,100) <= settings.reblinkProbability) {
+        that.blink(item);      
+      }
+    }, this.rand(settings.blinkMin, settings.blinkMax) );
+  };
 
-            var textShadow = 'text-shadow: '+settings.glow.toString()+';';
-            var colorOn = 'color: '+settings.color+';'+textShadow;
-            var colorOff = 'color: '+settings.color+'; opacity: 0.3;';
+  Novacancy.prototype.on = function(item) {
+    item.removeClass('off').addClass('on');
+  };
 
-            if (!cssBuildChecker[items.selector]) {
-                cssBuildChecker[items.selector] = 1;
-                cssBuilder += (items.selector+' .novacancy.on { '+colorOn+' }'+'\n');
-                cssBuilder += (items.selector+' .novacancy.off { '+colorOff+' }'+'\n');
-            }
+  Novacancy.prototype.off = function(item) {
+    item.removeClass('on').addClass('off');
+  };
 
-            /* html string combine & rebuild to html */
+  Novacancy.prototype.buildHTML = function() {
+    var el = this._el;
+    var htmlBuilder = '';
 
-            var htmlBuilder = '';
+    $.each(el.contents(), function(index, value) {
 
-            $.each($(this).contents(), function(index, value) {
-                
-                if (value.nodeType == 3) {
-                    var txts = value.nodeValue.split('');
-                    $.each(txts, function(index, value) {
-                        htmlBuilder += ( '<span class="novacancy on">'+value+'</span>' );
-                    });
-                } else {
-                    htmlBuilder += value.outerHTML;
-                }
-
-            });
-
-            that.html(htmlBuilder);
-
-            /* */
-
-            var len = that.find('span.novacancy').length;
-            var blinkArr = [];
-            var offArr = [];
-            var blinkArrLen;
-            var loopTimeout;
-            var arrLimit;
-
-            /* off make */
-
-            if (settings.off > 0) {
-                if (settings.off > len) settings.off = len;
-                for (var i = 1; i <= settings.off; i++) {
-                    var num;
-                    var item;
-
-                    do {
-                        num = rand(0, len-1);
-                    } while ($.inArray(num, offArr) != -1);
-
-                    offArr.push(num);
-                    item = that.find('span.novacancy:eq('+num+')');
-                    off(item);
-                }
-            } else {
-                settings.off = 0;
-            }
-
-            /* blink array make */
-
-            if (settings.blink > 0) {
-                if (settings.blink > len) settings.blink = len;
-
-                if ((settings.blink + settings.off) > len) {
-                    settings.blink = settings.blink - settings.off;
-                    if (settings.blink < 0) settings.blink = 0;
-                }
-
-                arrLimit = settings.blink;
-            } else {
-                arrLimit = len - settings.off;
-            }
-
-            for (i = 1; i<= arrLimit; i++) {
-                do {
-                    num = rand(0, len-1);
-                } while ( ($.inArray(num, offArr) != -1) || ($.inArray(num, blinkArr) != -1) );
-                blinkArr.push(num);
-            }
-
-            blinkArrLen = blinkArr.length;
-
-
-            /* blink loop */
-
-            function loop() {
-                if (!powerOn) return;
-
-                var num;
-                var item;
-
-                num = blinkArr[rand(0, blinkArrLen-1)];
-                item = that.find('span.novacancy:eq('+num+')');                     
-                if (!item[0].blinking) blink(item, settings.blinkMin, settings.blinkMax, settings.reblinkProbability);
-
-                loopTimeout = setTimeout(loop, rand(settings.loopMin, settings.loopMax) );
-            }
-
-            function blinkOn() {
-                if (!powerOn) {
-                    powerOn = true;
-                    loopTimeout = setTimeout(loop, rand(settings.loopMin, settings.loopMax) );
-                }
-            }
-
-            function blinkOff() {
-                if (powerOn) {
-                    powerOn = false;
-                    clearTimeout(loopTimeout);
-                }
-            }
-
-            if (settings.autoOn) blinkOn();
-
-            /* events bind */
-
-            $(this).on('blinkOn', function(e) {
-                blinkOn();
-            });
-
-            $(this).on('blinkOff', function(e) {
-                blinkOff();
-            });
-
+      if (value.nodeType == 3) { /* text */
+        var txts = value.nodeValue.split('');
+        $.each(txts, function(index, value) {
+          htmlBuilder += ( '<span class="novacancy on">'+value+'</span>' );
         });
+      } else {
+        htmlBuilder += value.outerHTML;
+      }
+    });
 
+    return htmlBuilder;
+  };
 
-        /* css string append */
+  Novacancy.prototype.arrayMake = function() {
+    var el = this._el;
+    var settings = this._settings;
 
-        var style = $('<style>'+cssBuilder+'</style>');
-        $('body').append(style);
+    var len = el.find('span.novacancy').length;
+    var blinkArr = [];
+    var offArr = [];
+    var blinkArrLen;
+    var arrLimit;
+    var off = settings.off;
+    var blink = settings.blink;
 
-        /* */
+    /* off make */
 
-        return items;
+    if (off > 0) {
+      if (off > len) off = len;
+      for (var i = 1; i <= off; i++) {
+        var num;
+        var item;
+
+        do {
+          num = this.rand(0, len-1);
+        } while ($.inArray(num, offArr) != -1);
+
+        offArr.push(num);
+        item = el.find('span.novacancy:eq('+num+')');
+        this.off(item);
+      }
+    } else {
+      off = 0;
     }
+
+    /* blink array make */
+
+    if (blink > 0) {
+      if (blink > len) blink = len;
+
+      if ((blink + off) > len) {
+        blink = blink - off;
+        if (blink < 0) blink = 0;
+      }
+
+      arrLimit = blink;
+    } else {
+      arrLimit = len - off;
+    }
+
+    for (i = 1; i<= arrLimit; i++) {
+      do {
+        num = this.rand(0, len-1);
+      } while ( ($.inArray(num, offArr) != -1) || ($.inArray(num, blinkArr) != -1) );
+      blinkArr.push(num);
+    }
+
+    return blinkArr;
+  }
+
+  Novacancy.prototype.loop = function() {
+    if (!this._powerOn) return;
+
+    var el = this._el;
+    var settings = this._settings;
+    var blinkArr = this._blinkArr;
+
+    var num;
+    var item;
+    var that = this;
+
+    num = blinkArr[this.rand(0, blinkArr.length-1)];
+    item = el.find('span.novacancy:eq('+num+')');      
+
+    if (!item[0].blinking) this.blink(item);
+
+    this._loopTimeout = setTimeout(function() {
+      that.loop();
+    }, this.rand(settings.loopMin, settings.loopMax));
+  };
+
+  Novacancy.prototype.blinkOn = function() {
+    if (!this._powerOn) {
+      var settings = this._settings;
+
+      var that = this;
+
+      this._powerOn = true;
+      this._loopTimeout = setTimeout(function() {
+        that.loop();
+      }, this.rand(settings.loopMin, settings.loopMax));
+    }
+  };
+
+  Novacancy.prototype.blinkOff = function() {
+    if (this._powerOn) {
+      this._powerOn = false;
+      clearTimeout(this._loopTimeout);
+    }
+  };
+
+  Novacancy.prototype.bindEvent = function() {
+    var el = this._el;
+    var that = this;
+
+    el.on('blinkOn', function(e) {
+      that.blinkOn();
+    });
+
+    el.on('blinkOff', function(e) {
+      that.blinkOff();
+    });
+  };
+
+  /*  */
+
+  var settings = function(options){
+    var settings = $.extend({
+      'reblinkProbability': (1/3),
+      'blinkMin': 0.01,
+      'blinkMax': 0.5,
+      'loopMin': 0.5,
+      'loopMax': 2,
+      'color': 'ORANGE',
+      'glow': ['0 0 80px Orange', '0 0 30px Red', '0 0 6px Yellow'],
+      'off': 0,
+      'blink': 0,
+      'autoOn': true
+    }, options);
+
+    settings.reblinkProbability *= 100;
+    settings.blinkMin *= 1000;
+    settings.blinkMax *= 1000;
+    settings.loopMin *= 1000;
+    settings.loopMax *= 1000;
+
+    return settings;
+  };
+
+  $.fn.novacancy = function(options) {
+    return $.each(this, function(index, value) {
+      new Novacancy(this, settings(options));
+    });
+  };
 
 })(jQuery);
