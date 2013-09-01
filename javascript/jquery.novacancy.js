@@ -7,9 +7,9 @@
 * @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.4.1
+* @version 0.4.2
 * @license MIT http://opensource.org/licenses/MIT
-* @date 09-01-2013
+* @date 09-02-2013
 */
 
 ;(function($){
@@ -24,6 +24,7 @@
     this._powerOn = false;
     this._loopTimeout = 0;
     this._el.html(this.buildHTML());
+    this._items = this._el.find('span.novacancy');
     this._blinkArr = this.arrayMake();
     this.bindEvent();
     this.writeCSS();
@@ -120,7 +121,6 @@
     var htmlBuilder = '';
 
     $.each(el.contents(), function(index, value) {
-
       if (value.nodeType == 3) { /* text */
         var txts = value.nodeValue.split('');
         $.each(txts, function(index, value) {
@@ -138,7 +138,8 @@
     var el = this._el;
     var settings = this._settings;
 
-    var len = el.find('span.novacancy').length;
+    var items = this._items;
+    var len = items.length;
     var randomArray = this.randomArray(len);
     var blinkArr;
     var offArr;
@@ -153,9 +154,9 @@
 
     offArr = randomArray.splice(0, off);
     $.each(offArr, function(index, value) {
-      that.off(el.find('span.novacancy:eq('+value+')'));
+      that.off($(items[value]));
     });
-    
+
     /* blink array make */
 
     blink = (blink===0) ? len : blink;
@@ -192,6 +193,7 @@
     var el = this._el;
     var settings = this._settings;
     var blinkArr = this._blinkArr;
+    var items = this._items;
 
     if (blinkArr.length===0) return;
 
@@ -200,7 +202,7 @@
     var that = this;
 
     num = blinkArr[this.rand(0, blinkArr.length-1)];
-    item = el.find('span.novacancy:eq('+num+')');      
+    item = $(items[num]);   
 
     if (!item[0].blinking) this.blink(item);
 
