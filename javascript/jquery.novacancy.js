@@ -7,9 +7,9 @@
 * @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.4
+* @version 0.4.1
 * @license MIT http://opensource.org/licenses/MIT
-* @date 08-31-2013
+* @date 09-01-2013
 */
 
 ;(function($){
