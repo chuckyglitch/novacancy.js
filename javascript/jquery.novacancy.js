@@ -139,56 +139,51 @@
     var settings = this._settings;
 
     var len = el.find('span.novacancy').length;
-    var blinkArr = [];
-    var offArr = [];
-    var blinkArrLen;
-    var arrLimit;
+    var randomArray = this.randomArray(len);
+    var blinkArr;
+    var offArr;
     var off = settings.off;
     var blink = settings.blink;
+    var that = this;
 
     /* off make */
 
-    if (off > 0) {
-      if (off > len) off = len;
-      for (var i = 1; i <= off; i++) {
-        var num;
-        var item;
+    off = Math.min(off, len);
+    off = Math.max(0, off);
 
-        do {
-          num = this.rand(0, len-1);
-        } while ($.inArray(num, offArr) != -1);
-
-        offArr.push(num);
-        item = el.find('span.novacancy:eq('+num+')');
-        this.off(item);
-      }
-    } else {
-      off = 0;
-    }
-
+    offArr = randomArray.splice(0, off);
+    $.each(offArr, function(index, value) {
+      that.off(el.find('span.novacancy:eq('+value+')'));
+    });
+    
     /* blink array make */
 
-    if (blink > 0) {
-      if (blink > len) blink = len;
+    blink = (blink===0) ? len : blink;
+    blink = ((blink + off) < len) ? blink : len - off;
+    blink = Math.max(0, blink);
 
-      if ((blink + off) > len) {
-        blink = blink - off;
-        if (blink < 0) blink = 0;
-      }
+    blinkArr = randomArray.splice(0, blink);
 
-      arrLimit = blink;
-    } else {
-      arrLimit = len - off;
-    }
-
-    for (i = 1; i<= arrLimit; i++) {
-      do {
-        num = this.rand(0, len-1);
-      } while ( ($.inArray(num, offArr) != -1) || ($.inArray(num, blinkArr) != -1) );
-      blinkArr.push(num);
-    }
 
     return blinkArr;
+  }
+
+  Novacancy.prototype.randomArray = function(n) {
+    var ary = [];
+    var i;
+    var r;
+    var t;
+
+    for (i = 0 ; i < n ; ++i) {
+      ary[i] = i;
+    }
+    for (i = 0 ; i < n ; ++i) {
+      r = parseInt((Math.random() * n), 10);
+      t = ary[r];
+      ary[r] = ary[i];
+      ary[i] = t;
+    }
+    return ary;
   }
 
   Novacancy.prototype.loop = function() {
@@ -197,6 +192,8 @@
     var el = this._el;
     var settings = this._settings;
     var blinkArr = this._blinkArr;
+
+    if (blinkArr.length===0) return;
 
     var num;
     var item;
