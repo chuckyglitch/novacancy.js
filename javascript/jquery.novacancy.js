@@ -7,7 +7,7 @@
 * @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.4.2
+* @version 0.4.3
 * @license MIT http://opensource.org/licenses/MIT
 * @date 09-02-2013
 */
@@ -153,6 +153,7 @@
     off = Math.max(0, off);
 
     offArr = randomArray.splice(0, off);
+
     $.each(offArr, function(index, value) {
       that.off($(items[value]));
     });
@@ -160,11 +161,10 @@
     /* blink array make */
 
     blink = (blink===0) ? len : blink;
-    blink = ((blink + off) < len) ? blink : len - off;
+    blink = Math.min(blink, len - off);
     blink = Math.max(0, blink);
 
     blinkArr = randomArray.splice(0, blink);
-
 
     return blinkArr;
   }
