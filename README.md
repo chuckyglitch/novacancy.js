@@ -44,7 +44,7 @@ $('#no').novacancy({
 
 ### colors example:
 ```javascript
-Hexadecimal: '#ff0000'
+Hexadecimal: '#ffffff'
 RGB: 'rgb(255,255,255)'
 RGBA: 'rgba(255,255,255,1)'
 Text: 'WHITE'
