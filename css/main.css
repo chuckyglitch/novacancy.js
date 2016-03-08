@@ -1,0 +1,136 @@
+/********************
+*
+* common
+*
+********************/
+
+*,*:after,*:before{
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/********************
+*
+* bg
+*
+********************/
+
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+.bg.bg1s {
+    background-image: url(../images/bg1s.jpg);
+}
+.bg:before {
+    content: "";
+    display: block;
+    background: rgba(16,16,16,0.9);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/********************
+*
+* github-btn
+*
+********************/
+
+.github-btn {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+/********************
+*
+* board
+*
+********************/
+
+.board {
+    text-align: center;
+    width: 500px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.board h1 {
+    font-weight: normal;
+}
+
+.board span {
+    font-size: 75px;
+    font-family: 'Monoton', cursive;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+/********************
+*
+* responsive
+*
+********************/
+
+@media screen and (max-width:359px){
+    .board {
+        width: 250px;
+    }
+    .board span {
+        font-size: 35px;
+    }
+}
+@media screen and (min-width:360px) and (max-width:399px){
+    .board {
+        width: 300px;
+    }
+    .board span {
+        font-size: 45px;
+    }
+}
+@media screen and (min-width:400px) and (max-width:479px){
+    .board {
+        width: 350px;
+    }
+    .board span {
+        font-size: 55px;
+    }
+}
+@media screen and (min-width:480px) and (max-width:639px){
+    .board {
+        width: 400px;
+    }
+    .board span {
+        font-size: 65px;
+    }
+}
+@media screen and (min-width:640px) and (max-width:799px){
+    .board {
+        width: 450px;
+    }
+    .board span {
+        font-size: 70px;
+    }
+}
