@@ -7,9 +7,9 @@
 * @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.5
+* @version 0.6
 * @license MIT http://opensource.org/licenses/MIT
-* @date 06-06-2014
+* @date 08-03-2016
 */
 
 ;(function($){
@@ -138,7 +138,7 @@
       offArr = randomArray.splice(0, off);
 
       $.each(offArr, function(index, value) {
-        _me.off($(_items[value]));
+        _me.off(_items.eq(value));
       });
 
       /* blink array make */
@@ -177,8 +177,8 @@
       var num;
       var item;
 
-      num = _blinkArr[_me.rand(0, _blinkArr.length-1)];
-      item = $(_items[num]);   
+      num = _blinkArr[_me.rand(0, _blinkArr.length-1)];  
+      item = _items.eq(num);
 
       if (!item[0].blinking) _me.blink(item);
 
