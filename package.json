@@ -1,0 +1,21 @@
+
+{
+  "name": "novacancy.js",
+  "version": "0.0.1",
+  "description": "Text Neon Golden effect jQuery plug-in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acidjazz/novacancy.js.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "novacancy"
+  ],
+  "author": "Kevin Olson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acidjazz/novacancy.js/issues"
+  },
+  "homepage": "https://github.com/acidjazz/novacancy.js#readme"
+}
