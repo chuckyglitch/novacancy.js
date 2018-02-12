@@ -4,7 +4,7 @@ novacancy.js is a text neon golden effect jQuery plugin.
 
 ## Demo
 
-<a href='http://chuckyglitch.github.io/novacancy.js/'>Visit demo site</a>
+<a href='https://chuckyglitch.github.io/novacancy.js/'>Visit demo site</a>
 
 ## Basic Usage
 
