@@ -65,6 +65,10 @@ $('#no').trigger('blinkOn');
 $('#no').trigger('blinkOff');
 ```
 
+## License
+
+Copyright (c) 2018 Chuck Chang Licensed under the MIT license
+
 ## Special Thanks
 
 - Evil Reiko <evilreiko@hotmail.com>
