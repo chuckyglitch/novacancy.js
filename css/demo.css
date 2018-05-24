@@ -1,20 +1,20 @@
 body {
-    background-color: #111111;
+  background-color: #111111;
 }
 
 .board {
-    text-align: center;
-    border: 1px solid rgba(255,180,0,0.4);
-    border-radius: 4px;
-    width: 500px;
-    margin: 50px auto 0 auto;
-    padding: 20px;
-    background-color: #000;
+  text-align: center;
+  border: 1px solid rgba(255,180,0,0.4);
+  border-radius: 4px;
+  width: 500px;
+  margin: 50px auto 0 auto;
+  padding: 20px;
+  background-color: #000;
 }
 
-.board p {
-    font-size: 75px;
-    font-family: 'Monoton', cursive;
-    color: #fff;
-    text-transform: uppercase;
+.board > * {
+  font-size: 75px;
+  font-family: 'Monoton', cursive;
+  color: #fff;
+  text-transform: uppercase;
 }

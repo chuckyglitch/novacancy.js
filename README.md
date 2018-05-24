@@ -27,6 +27,7 @@ $('#no').novacancy({
 	'blink': 1,
 	'classOn': 'on',
 	'classOff': 'off',
+	'element': 'data',
 	'autoOn': true
 });
 ```
@@ -44,6 +45,7 @@ $('#no').novacancy({
 - <b>blink</b>: amount of blink chars, <b>Number</b>, <b>optional</b>, default: <b>0</b>, <b>(0 means all chars)</b>
 - <b>classOn</b>: class name of on chars, <b>String</b>, <b>optional</b> default: <b>'on'</b>
 - <b>classOff</b>: class name of off chars, <b>String</b>, <b>optional</b> default: <b>'off'</b>
+- <b>element</b>: split content by element, default: <b>data</b>
 - <b>autoOn</b>: blink on at start, <b>Boolean</b>, <b>optional</b>, default: <b>true</b>
 
 ### colors example:

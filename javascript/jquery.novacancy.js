@@ -1,5 +1,5 @@
 /**
-* Novacancy
+* Novacancy.js
 * jQuery Text Blink Neon Golden effect Plugin
 *
 * @author Chuck Chang <eurt23@gmail.com>
@@ -7,9 +7,8 @@
 * @twitter <https://twitter.com/chuckyglitch>
 *
 * @repo https://github.com/chuckyglitch/novacancy.js
-* @version 0.6
 * @license MIT http://opensource.org/licenses/MIT
-* @date 08-03-2016
+* @date 24-05-2018
 */
 
 ;(function($){
@@ -35,23 +34,21 @@
       }
     };
 
-    this.writeCSS = function() {
-      var cssBuilder = _me.css();
+    this.setAppearance = function() {
+      var name = 'novacancy-id';
+      var nvid = ++$.fn.novacancyID;
+      var attrString = '['+name+'="'+nvid+'"]';
+      _el.attr(name, nvid);
+      _me.addCSS(attrString);
+    }
+
+    this.addCSS = function(attr) {
+      var cssBuilder = _me.css(attr);
       var style = $('<style>'+cssBuilder+'</style>');
       $('body').append(style);
     };
 
-    this.selector = function() {
-      var selector = _el[0].tagName;
-      if (_el[0].id) selector += ("#" + _el[0].id);
-      if (_el[0].className) selector += ("." + _el[0].className);
-
-      return selector;
-    };
-
-    this.css = function() {
-      var selector = this.selector();
-
+    this.css = function(attr) {
       var colorOn = '';
       var colorOff = '';
       var textShadow = '';
@@ -67,8 +64,8 @@
       };
 
       var css = '';
-      css += (selector+' .novacancy.'+_settings.classOn+' { '+colorOn+' }'+'\n');
-      css += (selector+' .novacancy.'+_settings.classOff+' { '+colorOff+' }'+'\n');
+      css += (attr+' .novacancy.'+_settings.classOn+' { '+colorOn+' }'+'\n');
+      css += (attr+' .novacancy.'+_settings.classOff+' { '+colorOff+' }'+'\n');
 
       return css;
     };
@@ -83,7 +80,6 @@
       item[0].blinking = true;
       setTimeout(function() {
         _me.on(item);
-        item[0].blinking = false;
         _me.reblink(item);
       }, _me.rand(_settings.blinkMin, _settings.blinkMax) );
     };
@@ -93,6 +89,8 @@
         /* continue blink check */
         if (_me.rand(1,100) <= _settings.reblinkProbability) {
           _me.blink(item);
+        } else {
+          item[0].blinking = false;
         }
       }, _me.rand(_settings.blinkMin, _settings.blinkMax) );
     };
@@ -106,13 +104,18 @@
     };
 
     this.buildHTML = function() {
+      var htmlString = this.htmlString;
+      _el.html(htmlString);
+    };
+
+    this.htmlString = function() {
       var htmlBuilder = '';
 
       $.each(_el.contents(), function(index, value) {
         if (value.nodeType == 3) { /* text */
           var txts = value.nodeValue.split('');
           $.each(txts, function(index, value) {
-            htmlBuilder += ( '<span class="novacancy '+_settings.classOn+'">'+value+'</span>' );
+            htmlBuilder += ( '<'+_settings.element+' class="novacancy '+_settings.classOn+'">'+value+'</'+_settings.element+'>' );
           });
         } else {
           htmlBuilder += value.outerHTML;
@@ -120,9 +123,9 @@
       });
 
       return htmlBuilder;
-    };
+    }
 
-    this.arrayMake = function() {
+    this.newArray = function() {
       var len = _items.length;
       var randomArray = _me.randomArray(len);
       var blinkArr;
@@ -203,7 +206,7 @@
       }
     };
 
-    this.bindEvent = function() {
+    this.bindEvents = function() {
       _el.on('blinkOn', function(e) {
         _me.blinkOn();
       });
@@ -220,11 +223,11 @@
     _settings = settings;
     _powerOn = false;
     _loopTimeout = 0;
-    _el.html(_me.buildHTML());
-    _items = _el.find('span.novacancy');
-    _blinkArr = _me.arrayMake();
-    _me.bindEvent();
-    _me.writeCSS();
+    _me.buildHTML();
+    _items = _el.find(_settings.element+'.novacancy');
+    _blinkArr = _me.newArray();
+    _me.bindEvents();
+    _me.setAppearance();
 
     if (_settings.autoOn) _me.blinkOn();
 
@@ -245,6 +248,7 @@
       'blink': 0,
       'classOn': 'on',
       'classOff': 'off',
+      'element': 'data',
       'autoOn': true
     }, options);
 
@@ -256,6 +260,8 @@
 
     return settings;
   };
+
+  $.fn.novacancyID = (typeof $.fn.novacancyID === "undefined") ? 0 : $.fn.novacancyID;
 
   $.fn.novacancy = function(options) {
     return $.each(this, function(index, value) {
