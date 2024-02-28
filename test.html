@@ -20,10 +20,17 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NH44J68"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <a href="javascript:;" @click="test">test</a>
+    <a href="javascript:;" onclick="test">test</a>
     <script>
       const test = () => {
-        console.log('test');
+        dataLayer.push({
+          'event': 'add_to_cart',
+          'value': 78.45,
+          'items' : [{
+            'id': '1234',
+            'google_business_vertical': 'retail'
+          }]
+        });
       };
     </script>
   </body>
