@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
+	<title>No Vacancy (Vanilla JS Edition)</title>
+	<link rel="stylesheet" href="css/html5reset-1.6.1.css" type="text/css" media="screen,print">
+	<link href="css/demo.css" rel="stylesheet" type="text/css">
+	<link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
+	
+	<!-- IE Fix for HTML5 Tags -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- 注意：不再需要 jQuery 庫 -->
+	<script type="text/javascript" src="javascript/novacancy.js"></script>
+	<script type="text/javascript">
+		// 使用 DOMContentLoaded 事件取代 $(document).ready()
+		document.addEventListener('DOMContentLoaded', function() {
+			// 使用原生 JavaScript API 初始化 No Vacancy 效果
+			initNovacancy('#no', {
+				'reblinkProbability': 0.1,
+				'blinkMin': 0.2,
+				'blinkMax': 0.6,
+				'loopMin': 8,
+				'loopMax': 10,
+				'color': '#ffffff',
+				'glow': ['0 0 80px #ffffff', '0 0 30px #008000', '0 0 6px #0000ff']
+			}); 
+
+			initNovacancy('#vacancy', {
+				'blink': 1,
+				'off': 1,
+				'color': 'Red',
+				'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
+			});
+		});
+		
+		// 添加一個示範如何控制效果的功能
+		function toggleEffect() {
+			const noElement = document.getElementById('no');
+			const vacancyElement = document.getElementById('vacancy');
+			
+			// 檢查目前狀態並切換
+			if (noElement.dataset.effectEnabled === 'true') {
+				// 關閉效果
+				noElement.dispatchEvent(new CustomEvent('blinkOff'));
+				vacancyElement.dispatchEvent(new CustomEvent('blinkOff'));
+				noElement.dataset.effectEnabled = 'false';
+				document.getElementById('toggleButton').textContent = 'Enable';
+			} else {
+				// 開啟效果
+				noElement.dispatchEvent(new CustomEvent('blinkOn'));
+				vacancyElement.dispatchEvent(new CustomEvent('blinkOn'));
+				noElement.dataset.effectEnabled = 'true';
+				document.getElementById('toggleButton').textContent = 'Disable';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="board">
+	    <p id="no" data-effect-enabled="true">No</p>
+	    <p id="vacancy">Vacancy</p>
+	</div>
+	
+	<!-- 加入一個控制按鈕來展示事件操作 -->
+	<div class="controls">
+		<button id="toggleButton" onclick="toggleEffect()">Disable</button>
+	</div>
+	
+	<!-- <div class="info">
+		<p>這是使用原生 JavaScript 重寫的 Novacancy.js 效果。</p>
+		<p>不需要任何 jQuery 相依性！</p>
+	</div> -->
+	
+	<!-- 添加一些基本樣式 -->
+	<style>
+		.controls {
+			text-align: center;
+			margin-top: 20px;
+		}
+		
+		.controls button {
+			padding: 10px 20px;
+			font-size: 16px;
+			background-color: #333;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		
+		.controls button:hover {
+			background-color: #555;
+		}
+		
+		.info {
+			margin-top: 30px;
+			text-align: center;
+			color: #888;
+			font-family: Arial, sans-serif;
+		}
+	</style>
+</body>
+</html> 
